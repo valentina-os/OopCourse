@@ -1,5 +1,8 @@
 package ru.academits.oskina.range;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 public class Range {
     private double from;
     private double to;
@@ -26,77 +29,47 @@ public class Range {
     }
 
     public double getLength() {
-        return this.to - this.from;
+        return to - from;
     }
 
     public boolean isInside(double number) {
         return number >= from && number <= to;
     }
 
-    public void printRange() {
-        System.out.println("от " + this.from + " до " + this.to);
+    @Override
+    public String toString() {
+        return "от " + from + " до " + to;
     }
 
     public Range getIntersection(Range range) {
-        Range intersection = new Range(this.from, this.to);
-
-        if (range.from >= this.to || this.from >= range.to) {
-            intersection = null;
+        if (range.from >= to || from >= range.to) {
+            return null;
         } else {
-            if (this.from < range.from) {
-                intersection.from = range.from;
-            }
-
-            if (this.to > range.to) {
-                intersection.to = range.to;
-            }
+            return new Range(max(from, range.from), min(to, range.to));
         }
-
-        return intersection;
     }
 
     public Range[] getUnion(Range range) {
-        Range[] union = new Range[2];
-
-        if (range.from > this.to || this.from > range.to) {
-            union[0] = new Range(this.from, this.to);
-            union[1] = new Range(range.from, range.to);
+        if (range.from > to || from > range.to) {
+            return new Range[]{this, range};
         } else {
-            union[0] = new Range(from, to);
-            union[1] = null;
-
-            if (this.from > range.from) {
-                union[0].from = range.from;
-            }
-
-            if (this.to < range.to) {
-                union[0].to = range.to;
-            }
+            return new Range[]{new Range(min(from, range.from), max(to, range.to))};
         }
-
-        return union;
     }
 
-    public Range[] getSubtraction(Range range) {
-        Range[] subtraction = {null, null};
-
-        if (range.from >= this.to || this.from >= range.to) {
-            subtraction[0] = new Range(this.from, this.to);
+    public Range[] getDifference(Range range) {
+        if (range.from >= to || from >= range.to) {
+            return new Range[]{this};
         } else {
-            if (this.from < range.from && this.to < range.to) {
-                subtraction[0] = new Range(this.from, range.from);
-            }
-
-            if (this.from > range.from && this.to > range.to) {
-                subtraction[0] = new Range(range.to, this.to);
-            }
-
-            if (this.from < range.from && this.to > range.to) {
-                subtraction[0] = new Range(this.from, range.from);
-                subtraction[1] = new Range(range.to, this.to);
+            if (from < range.from && to < range.to) {
+                return new Range[]{new Range(from, range.from)};
+            } else if (from > range.from && to > range.to) {
+                return new Range[]{new Range(range.to, to)};
+            } else if (from < range.from && to > range.to) {
+                return new Range[]{new Range(from, range.from), new Range(range.to, to)};
+            } else {
+                return new Range[]{};
             }
         }
-
-        return subtraction;
     }
 }
