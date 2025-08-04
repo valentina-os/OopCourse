@@ -9,45 +9,41 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Range range = new Range(5.5, 9.5);
+        Range range1 = new Range(-3, 9.5);
 
-        System.out.println("Длина диапазона = " + range.getLength());
+        System.out.println("Длина диапазона = " + range1.getLength());
 
-        range.setFrom(1.5);
-        System.out.println("Длина нового диапазона = " + range.getLength());
-        System.out.println("Начало нового диапазона = " + range.getFrom());
+        range1.setFrom(-10);
+        System.out.println("Длина нового диапазона = " + range1.getLength());
+        System.out.println("Начало нового диапазона = " + range1.getFrom());
 
-        range.setTo(3.5);
-        System.out.println("Длина нового диапазона = " + range.getLength());
-        System.out.println("Конец нового диапазона = " + range.getTo());
+        range1.setTo(30);
+        System.out.println("Длина нового диапазона = " + range1.getLength());
+        System.out.println("Конец нового диапазона = " + range1.getTo());
 
         System.out.print("Введите число: ");
         double number = scanner.nextDouble();
 
-        if (range.isInside(number)) {
+        if (range1.isInside(number)) {
             System.out.println("Указанное число входит в диапазон");
         } else {
             System.out.println("Указанное число не входит в диапазон");
         }
 
-        Range range2 = new Range(1.5, 3.5);
+        Range range2 = new Range(-9, 29);
 
-        if (range.getIntersection(range2) == null) {
+        Range intersection = range1.getIntersection(range2);
+
+        if (intersection == null) {
             System.out.println("Пересечения нет");
         } else {
-            System.out.println("Интервал пересечения: " + range.getIntersection(range2));
+            System.out.println("Интервал пересечения: " + intersection);
         }
 
-        Range[] union = range.getUnion(range2);
+        Range[] union = range1.getUnion(range2);
         System.out.println("Интервал(ы) объединения двух диапазонов: " + Arrays.toString(union));
 
-        Range[] difference = range.getDifference(range2);
-        System.out.print("Интервал(ы) разности двух диапазонов: ");
-
-        if (difference.length == 0) {
-            System.out.print("интервалов разности нет");
-        } else {
-            System.out.print(Arrays.toString(difference));
-        }
+        Range[] difference = range1.getDifference(range2);
+        System.out.print("Интервал(ы) разности двух диапазонов: " + Arrays.toString(difference));
     }
 }
