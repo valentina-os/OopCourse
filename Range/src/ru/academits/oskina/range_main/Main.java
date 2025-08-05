@@ -9,15 +9,15 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Range range1 = new Range(-3, 9.5);
+        Range range1 = new Range(1, 4);
 
         System.out.println("Длина диапазона = " + range1.getLength());
 
-        range1.setFrom(-10);
+        range1.setFrom(1);
         System.out.println("Длина нового диапазона = " + range1.getLength());
         System.out.println("Начало нового диапазона = " + range1.getFrom());
 
-        range1.setTo(30);
+        range1.setTo(4);
         System.out.println("Длина нового диапазона = " + range1.getLength());
         System.out.println("Конец нового диапазона = " + range1.getTo());
 
@@ -30,7 +30,7 @@ public class Main {
             System.out.println("Указанное число не входит в диапазон");
         }
 
-        Range range2 = new Range(-9, 29);
+        Range range2 = new Range(4, 8);
 
         Range intersection = range1.getIntersection(range2);
 

@@ -48,7 +48,7 @@ public class Range {
 
     public Range[] getUnion(Range range) {
         if (range.from > to || from > range.to) {
-            return new Range[]{new Range(from, to), range};
+            return new Range[]{new Range(from, to), new Range(range.from, range.to)};
         }
 
         return new Range[]{new Range(Math.min(from, range.from), Math.max(to, range.to))};
