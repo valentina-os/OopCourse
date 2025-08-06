@@ -1,33 +1,19 @@
 package ru.academits.oskina.shapes_main;
 
+import ru.academits.oskina.comparator.*;
 import ru.academits.oskina.shapes.*;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class Main {
-    public static class AreaComparator implements Comparator<Shapes> {
-        @Override
-        public int compare(Shapes shape1, Shapes shape2) {
-            return (int) Math.round(shape1.getArea() - shape2.getArea());
-        }
-    }
-
-    public static Shapes getMaxAreaShape(Shapes[] shapes) {
-        Arrays.sort(shapes, new AreaComparator());
+    public static Shape getMaxAreaShape(Shape[] shapes) {
+        Arrays.sort(shapes, new ShapeAreaComparator());
 
         return shapes[shapes.length - 1];
     }
 
-    public static class PerimeterComparator implements Comparator<Shapes> {
-        @Override
-        public int compare(Shapes shape1, Shapes shape2) {
-            return (int) Math.round(shape1.getPerimeter() - shape2.getPerimeter());
-        }
-    }
-
-    public static Shapes getShapeWithSecondLargestPerimeter(Shapes[] shapes) {
-        Arrays.sort(shapes, new PerimeterComparator());
+    public static Shape getSecondMaxPerimeterShape(Shape[] shapes) {
+        Arrays.sort(shapes, new ShapePerimeterComparator());
 
         int i = shapes.length - 1;
 
@@ -43,17 +29,19 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Shapes[] shapes = {new Square(4.2),
+        Shape[] shapes = {
+                new Square(4.2),
                 new Square(3.5),
                 new Triangle(20, 3, 13, 20, 4, 6),
                 new Rectangle(3, 4),
                 new Rectangle(5.4, 1.2),
-                new Circle(3.5)};
+                new Circle(3.5)
+        };
 
         System.out.printf("""
                 Фигура с максимальной площадью: %s
                 
                 Фигура со вторым по величине периметром: %s
-                """, getMaxAreaShape(shapes), getShapeWithSecondLargestPerimeter(shapes));
+                """, getMaxAreaShape(shapes), getSecondMaxPerimeterShape(shapes));
     }
 }
