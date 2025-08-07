@@ -1,4 +1,4 @@
-package ru.academits.oskina.comparator;
+package ru.academits.oskina.shapes_comparators;
 
 import ru.academits.oskina.shapes.Shape;
 

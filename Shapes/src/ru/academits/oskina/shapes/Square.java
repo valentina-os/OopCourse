@@ -37,14 +37,14 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return System.out.printf("""
+        return String.format("""
                 Квадрат
                 Длина стороны: %.2f
                 Ширина: %.2f
                 Высота: %.2f
                 Периметр: %.2f
                 Площадь: %.2f
-                """, sideLength, sideLength, sideLength, getPerimeter(), getArea()).toString();
+                """, sideLength, sideLength, sideLength, getPerimeter(), getArea());
     }
 
     @Override

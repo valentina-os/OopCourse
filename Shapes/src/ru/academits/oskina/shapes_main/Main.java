@@ -1,6 +1,6 @@
 package ru.academits.oskina.shapes_main;
 
-import ru.academits.oskina.comparator.*;
+import ru.academits.oskina.shapes_comparators.*;
 import ru.academits.oskina.shapes.*;
 
 import java.util.Arrays;
@@ -12,7 +12,7 @@ public class Main {
         return shapes[shapes.length - 1];
     }
 
-    public static Shape getSecondMaxPerimeterShape(Shape[] shapes) {
+    public static Shape get2ndMaxPerimeter(Shape[] shapes) {
         Arrays.sort(shapes, new ShapePerimeterComparator());
 
         int i = shapes.length - 1;
@@ -42,6 +42,6 @@ public class Main {
                 Фигура с максимальной площадью: %s
                 
                 Фигура со вторым по величине периметром: %s
-                """, getMaxAreaShape(shapes), getSecondMaxPerimeterShape(shapes));
+                """, getMaxAreaShape(shapes), get2ndMaxPerimeter(shapes));
     }
 }

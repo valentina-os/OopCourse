@@ -37,14 +37,14 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return System.out.printf("""
+        return String.format("""
                 Окружность
                 Длина радиуса: %.2f
                 Ширина: %.2f
                 Высота: %.2f
                 Периметр: %.2f
                 Площадь: %.2f
-                """, radius, getWidth(), getHeight(), getPerimeter(), getArea()).toString();
+                """, radius, getWidth(), getHeight(), getPerimeter(), getArea());
     }
 
     @Override
