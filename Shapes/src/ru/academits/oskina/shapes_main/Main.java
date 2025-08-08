@@ -12,20 +12,10 @@ public class Main {
         return shapes[shapes.length - 1];
     }
 
-    public static Shape get2ndMaxPerimeter(Shape[] shapes) {
+    public static Shape getSecondMaxPerimeter(Shape[] shapes) {
         Arrays.sort(shapes, new ShapePerimeterComparator());
 
-        int i = shapes.length - 1;
-
-        while (i > 0) {
-            if (shapes[i - 1].getPerimeter() < shapes[i].getPerimeter()) {
-                return shapes[i - 1];
-            }
-
-            --i;
-        }
-
-        return shapes[shapes.length - 1];
+        return shapes[shapes.length - 2];
     }
 
     public static void main(String[] args) {
@@ -42,6 +32,6 @@ public class Main {
                 Фигура с максимальной площадью: %s
                 
                 Фигура со вторым по величине периметром: %s
-                """, getMaxAreaShape(shapes), get2ndMaxPerimeter(shapes));
+                """, getMaxAreaShape(shapes), getSecondMaxPerimeter(shapes));
     }
 }
