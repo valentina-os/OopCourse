@@ -1,34 +1,36 @@
 package ru.academits.oskina.array_list_home;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class ArrayListHome {
-    public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<String> text = new ArrayList<>();
+    public static ArrayList<String> getFileToList(String inPutFile) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(inPutFile));
 
-        try (Scanner scanner = new Scanner(new FileInputStream("TextDocument.txt"))) {
-            while (scanner.hasNextLine()) {
-                text.add(scanner.nextLine());
-            }
+        ArrayList<String> lines = new ArrayList<>();
 
-            System.out.println(text);
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
         }
 
-        ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(1, 5, 2, 1, 3, 5));
+        return lines;
+    }
 
+    public static void removeEvenNumbers(ArrayList<Integer> numbers) {
         for (int i = 0; i < numbers.size(); i++) {
             if (numbers.get(i) % 2 == 0) {
-                numbers.remove(numbers.get(i));
+                numbers.remove(i);
+
+                --i;
             }
         }
+    }
 
-        System.out.println("Список, из которого удалили все четные числа: " + numbers);
-
-        ArrayList<Integer> uniqueNumbers = new ArrayList<>();
+    public static ArrayList<Integer> getUniqueNumbers(ArrayList<Integer> numbers) {
+        ArrayList<Integer> uniqueNumbers = new ArrayList<>(numbers.size());
 
         for (Integer number : numbers) {
             if (!uniqueNumbers.contains(number)) {
@@ -36,6 +38,21 @@ public class ArrayListHome {
             }
         }
 
-        System.out.println("Новый список, в котором элементы не повторяются: " + uniqueNumbers);
+        return uniqueNumbers;
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("В файле содержатся следующие строки: " + getFileToList("TextDocument.txt"));
+        } catch (IOException e) {
+            System.out.println("Файл не найден");
+        }
+
+        ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(1, 5, 2, 2, 3, 5));
+
+        removeEvenNumbers(numbers);
+        System.out.println("Список, из которого удалили все четные числа: " + numbers);
+
+        System.out.println("Новый список, в котором элементы не повторяются: " + getUniqueNumbers(numbers));
     }
 }
