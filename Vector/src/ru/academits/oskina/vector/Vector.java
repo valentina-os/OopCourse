@@ -3,7 +3,7 @@ package ru.academits.oskina.vector;
 import java.util.Arrays;
 
 public class Vector {
-    private final double[] components;
+    private double[] components;
 
     public Vector(int dimension) {
         if (dimension <= 0) {
@@ -39,45 +39,63 @@ public class Vector {
 
     @Override
     public String toString() {
-        return Arrays.toString(components).replace("[", "{").replace("]", "}");
+        return String.format(""" 
+                {%s}
+                """, Arrays.toString(components).substring(1, Arrays.toString(components).length() - 1));
     }
 
-    public Vector getAmount(Vector vector) {
-        for (int i = 0; i < Math.min(this.components.length, vector.components.length); ++i) {
-            this.components[i] += vector.components[i];
+    public void add(Vector vector) {
+        int newSize = Math.max(this.components.length, vector.components.length);
+        double[] newComponents = new double[newSize];
+
+        for (int i = 0; i < newSize; ++i) {
+            if (i >= vector.components.length) {
+                newComponents[i] = this.components[i];
+            } else if (i >= this.components.length) {
+                newComponents[i] = vector.components[i];
+            } else {
+                newComponents[i] = this.components[i] + vector.components[i];
+            }
         }
 
-        return this;
+        this.components = newComponents;
     }
 
-    public Vector getDifference(Vector vector) {
-        for (int i = 0; i < Math.min(this.components.length, vector.components.length); ++i) {
-            this.components[i] -= vector.components[i];
+    public void subtract(Vector vector) {
+        int newSize = Math.max(this.components.length, vector.components.length);
+        double[] newComponents = new double[newSize];
+
+        for (int i = 0; i < newSize; ++i) {
+            if (i >= vector.components.length) {
+                newComponents[i] = this.components[i];
+            } else if (i >= this.components.length) {
+                newComponents[i] = -vector.components[i];
+            } else {
+                newComponents[i] = this.components[i] - vector.components[i];
+            }
         }
 
-        return this;
+        this.components = newComponents;
     }
 
-    public Vector getProductByScalar(double scalar) {
+    public void multiplyByScalar(double scalar) {
         for (int i = 0; i < components.length; ++i) {
             components[i] *= scalar;
         }
-
-        return this;
     }
 
-    public Vector getReversal() {
-        return getProductByScalar(-1);
+    public void revers() {
+        multiplyByScalar(-1);
     }
 
-    public double getModule() {
-        double module = 0;
+    public double getLength() {
+        double squaredComponentsSum = 0;
 
         for (double component : components) {
-            module = module + component * component;
+            squaredComponentsSum += component * component;
         }
 
-        return Math.sqrt(module);
+        return Math.sqrt(squaredComponentsSum);
     }
 
     public double getComponent(int index) {
@@ -107,12 +125,16 @@ public class Vector {
         return Arrays.hashCode(components);
     }
 
-    public static Vector getAddition(Vector vector1, Vector vector2) {
-        return new Vector(vector1.getAmount(vector2));
+    public static Vector getSum(Vector vector1, Vector vector2) {
+        Vector sum = new Vector(vector1);
+        sum.add(vector2);
+        return sum;
     }
 
-    public static Vector getSubtraction(Vector vector1, Vector vector2) {
-        return new Vector(vector1.getDifference(vector2));
+    public static Vector getDifference(Vector vector1, Vector vector2) {
+        Vector difference = new Vector(vector1);
+        difference.subtract(vector2);
+        return difference;
     }
 
     public static double getScalarProduct(Vector vector1, Vector vector2) {
