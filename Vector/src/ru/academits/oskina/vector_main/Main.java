@@ -31,7 +31,7 @@ public class Main {
         vector1.multiplyByScalar(scalar);
         System.out.println("Умножение вектора на скаляр = 2: " + vector1);
 
-        vector1.revers();
+        vector1.reverse();
         System.out.println("Разворот вектора: " + vector1);
         System.out.println("Длина первого вектора: " + vector1.getLength());
         System.out.println();
