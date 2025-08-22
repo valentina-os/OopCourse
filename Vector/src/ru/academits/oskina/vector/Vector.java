@@ -39,12 +39,12 @@ public class Vector {
 
     @Override
     public String toString() {
-        StringBuilder components = new StringBuilder(Arrays.toString(this.components));
+        StringBuilder stringBuilder = new StringBuilder(Arrays.toString(components));
 
-        components.setCharAt(0, '{');
-        components.setCharAt(components.length() - 1, '}');
+        stringBuilder.setCharAt(0, '{');
+        stringBuilder.setCharAt(stringBuilder.length() - 1, '}');
 
-        return components.toString();
+        return stringBuilder.toString();
     }
 
     public void add(Vector vector) {
