@@ -3,22 +3,22 @@ package ru.academits.oskina.array_list_home;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.FileNotFoundException;
 
 public class ArrayListHome {
     public static ArrayList<String> getStringsFromFile(String inputFile) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
 
-        ArrayList<String> lines = new ArrayList<>();
+            ArrayList<String> lines = new ArrayList<>();
 
-        String line;
+            String line;
 
-        while ((line = reader.readLine()) != null) {
-            lines.add(line);
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+
+            return lines;
         }
-
-        reader.close();
-
-        return lines;
     }
 
     public static void removeEvenNumbers(ArrayList<Integer> numbers) {
@@ -44,6 +44,8 @@ public class ArrayListHome {
     public static void main(String[] args) {
         try {
             System.out.println("В файле содержатся следующие строки: " + getStringsFromFile("TextDocument.txt"));
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден");
         } catch (IOException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
