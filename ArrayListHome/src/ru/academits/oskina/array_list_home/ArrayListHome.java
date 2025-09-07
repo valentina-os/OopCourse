@@ -6,9 +6,8 @@ import java.util.Arrays;
 import java.io.FileNotFoundException;
 
 public class ArrayListHome {
-    public static ArrayList<String> getStringsFromFile(String inputFile) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-
+    public static ArrayList<String> getFileLines(String fileName) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             ArrayList<String> lines = new ArrayList<>();
 
             String line;
@@ -43,7 +42,7 @@ public class ArrayListHome {
 
     public static void main(String[] args) {
         try {
-            System.out.println("В файле содержатся следующие строки: " + getStringsFromFile("TextDocument.txt"));
+            System.out.println("В файле содержатся следующие строки: " + getFileLines("TextDocument.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден");
         } catch (IOException e) {
